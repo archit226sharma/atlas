@@ -8,7 +8,8 @@
     "start": "node server.js",
     "serve": "node server.js",
     "build:css": "tailwindcss -i assets/css/input.css -o assets/css/styles.css --minify",
-    "build": "npm run build:css",
+    "build:deploy": "mkdir -p dist/assets/css dist/assets/js dist/assets/images && cp index.html 404.html robots.txt sitemap.xml dist/ && cp assets/css/styles.css dist/assets/css/ && cp assets/js/app.js assets/js/graph-engine.js assets/js/shader.js dist/assets/js/ && cp assets/images/logo.jpg assets/images/*.png dist/assets/images/",
+    "build": "npm run build:css && npm run build:deploy",
     "audit": "npm audit"
   },
   "engines": {
