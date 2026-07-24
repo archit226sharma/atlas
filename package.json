@@ -1,0 +1,32 @@
+{
+  "name": "codeatlas-website",
+  "version": "1.0.0",
+  "description": "Official production website for CodeAtlas Spring Boot Architecture Explorer VS Code extension.",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js",
+    "build:css": "tailwindcss -i assets/css/input.css -o assets/css/styles.css --minify",
+    "build": "npm run build:css",
+    "audit": "npm audit"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  },
+  "keywords": [
+    "codeatlas",
+    "vscode-extension",
+    "spring-boot",
+    "architecture-explorer",
+    "static-analysis"
+  ],
+  "author": "CodeAtlas Engineering",
+  "license": "MIT"
+}

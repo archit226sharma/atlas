@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeAtlas - Architecture Gallery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e4e1e5",
+                        "on-surface": "#e4e1e5",
+                        "on-primary": "#313032",
+                        "surface-container-high": "#2a2a2d",
+                        "surface-tint": "#c8c6c8",
+                        "on-surface-variant": "#c8c5ca",
+                        "tertiary": "#4ae176",
+                        "outline-variant": "#47464a",
+                        "on-primary-fixed": "#1c1b1d",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#131316",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed": "#1a1b22",
+                        "inverse-on-surface": "#303033",
+                        "surface-variant": "#353437",
+                        "primary-container": "#09090b",
+                        "secondary-fixed-dim": "#c6c6cf",
+                        "on-tertiary-fixed": "#002109",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "on-tertiary": "#003915",
+                        "on-primary-fixed-variant": "#474649",
+                        "surface-container-low": "#1b1b1e",
+                        "surface-container-highest": "#353437",
+                        "on-tertiary-container": "#008c3e",
+                        "primary": "#c8c6c8",
+                        "on-secondary-container": "#b4b4bd",
+                        "secondary": "#c6c6cf",
+                        "background": "#131316",
+                        "inverse-primary": "#5f5e60",
+                        "primary-fixed-dim": "#c8c6c8",
+                        "on-secondary": "#2f3037",
+                        "inverse-surface": "#e4e1e5",
+                        "surface-bright": "#39393c",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "on-error": "#690005",
+                        "surface-container": "#1f1f22",
+                        "secondary-container": "#45464e",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0e0e11",
+                        "surface": "#131316",
+                        "primary-fixed": "#e5e1e4",
+                        "tertiary-fixed": "#6bff8f",
+                        "tertiary-container": "#000c02",
+                        "outline": "#919095",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "secondary-fixed": "#e2e1eb",
+                        "on-primary-container": "#7a787b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "2xl": "48px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "base": "8px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "hero-lg": ["Geist"],
+                        "heading-md": ["Geist"],
+                        "section-title-mobile": ["Geist"],
+                        "hero-sm": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "label-caps": ["Geist"],
+                        "section-title": ["Geist"],
+                        "mono-code": ["Geist Mono"],
+                        "body-sm": ["Geist"]
+                    },
+                    "fontSize": {
+                        "hero-lg": ["72px", { "lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "heading-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "section-title-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "hero-sm": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "section-title": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "mono-code": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; background-color: #131316; color: #e4e1e5; }
+        .window-frame { background: #0e0e11; border: 1px solid #27272A; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .window-header { display: flex; align-items: center; padding: 0 16px; height: 32px; background: #131316; border-bottom: 1px solid #27272A; }
+        .window-dots { display: flex; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #FF5F56; }
+        .dot.yellow { background: #FFBD2E; }
+        .dot.green { background: #27C93F; }
+        .window-title { margin-left: auto; margin-right: auto; font-family: 'Geist Mono', monospace; font-size: 11px; color: #919095; }
+        .canvas-bg { background-image: radial-gradient(#27272A 1px, transparent 1px); background-size: 16px 16px; background-color: #131316; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-12 px-md w-full sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/50">
+<div class="flex items-center gap-md">
+<span class="font-heading-md text-heading-md text-on-background tracking-tight">CodeAtlas</span>
+<nav class="hidden md:flex items-center gap-sm">
+<a class="font-body-sm text-body-sm text-tertiary border-b-2 border-tertiary pb-1 hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Explorer</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Architecture</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Beans</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Dependencies</a>
+</nav>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-on-surface transition-colors" style="font-variation-settings: 'FILL' 0;">dark_mode</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-on-surface transition-colors" style="font-variation-settings: 'FILL' 0;">search</span>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Hidden on Mobile, Visible on Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-12 bottom-6 w-[260px] flex-col z-40 bg-surface-container-lowest border-r border-outline-variant/50">
+<div class="p-md border-b border-outline-variant/50">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-xs">Project Explorer</h2>
+<div class="font-mono-code text-mono-code text-on-surface truncate">spring-boot-api</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-sm">
+<a class="flex items-center gap-sm px-md py-sm border-l-2 border-tertiary bg-surface-container text-on-surface mb-xs cursor-pointer active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">folder</span>
+<span class="font-label-caps text-label-caps">Explorer</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all mb-xs cursor-pointer active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">search</span>
+<span class="font-label-caps text-label-caps">Search</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all mb-xs cursor-pointer active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+<span class="font-label-caps text-label-caps">Source Control</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all mb-xs cursor-pointer active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">bug_report</span>
+<span class="font-label-caps text-label-caps">Debug</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all mb-xs cursor-pointer active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">extension</span>
+<span class="font-label-caps text-label-caps">Extensions</span>
+</a>
+</nav>
+<div class="p-md border-t border-outline-variant/50 mt-auto">
+<button class="w-full bg-[#22C55E] text-[#09090B] font-label-caps text-label-caps py-sm px-md rounded hover:opacity-90 transition-opacity mb-md">
+                    Sync Architecture
+                </button>
+<div class="flex flex-col gap-sm">
+<a class="flex items-center gap-sm text-on-surface-variant opacity-70 hover:text-on-surface transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[16px]">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant opacity-70 hover:text-on-surface transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[16px]">account_circle</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-[260px] pb-3xl pt-lg px-md md:px-xl overflow-y-auto w-full">
+<header class="mb-xl max-w-4xl">
+<h1 class="font-hero-sm text-hero-sm text-on-surface mb-sm">Architecture Gallery</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Real-world Spring Boot topologies captured by CodeAtlas. 
+                    Visual proof of architectural drift, bypass violations, and dead code mapped directly from bytecode.
+                </p>
+</header>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-xl w-full">
+<!-- Bento Item 1: Overview -->
+<div class="flex flex-col gap-md">
+<div class="window-frame flex flex-col h-full">
+<div class="window-header">
+<div class="window-dots">
+<div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+</div>
+<div class="window-title">architecture-overview.png</div>
+<div class="ml-auto flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline text-[14px]">more_horiz</span>
+</div>
+</div>
+<div class="canvas-bg p-sm flex-1 relative flex items-center justify-center overflow-hidden group">
+<img alt="Architecture Overview" class="w-full object-contain rounded shadow-lg group-hover:scale-[1.02] transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPmfxjnUwrByG0XrpyXBoblwM7AWs3qW2nem8e8vr4TD_uPqGH4QGw4JnsFnhuONtSqR94ZfsT9oB7izgXYY7LdHYjt2VgVloTaVWqyZAM-gOat1wQtn2q7G7ghoDr_zu4W0Se37pMMTqBw2-6AxoAIqlY4ayqPzIoXi8tGfyYPDHXmv7vtSd2FDCrt0arjZ7yHZzxtvPIEKKWglZB8TpG4ga1lhiS6Z3r6nomDAMY4KtGKYo3fr-1tCbbQk5TbAt5DzB0bjGjhYw"/>
+<div class="absolute bottom-md right-md bg-surface-container-highest/90 backdrop-blur-sm border border-outline-variant/50 p-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="font-mono-code text-mono-code text-tertiary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    Topology Synced
+                                </span>
+</div>
+</div>
+<div class="bg-surface p-md border-t border-outline-variant/50">
+<h3 class="font-heading-md text-heading-md text-on-surface mb-xs">System Topology Map</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                                A complete macro-view of the microservices ecosystem. This graph reveals tight coupling between the `OrderService` and `InventoryService`, highlighting a potential bottleneck in synchronous communication paths.
+                            </p>
+<div class="mt-md flex gap-sm">
+<span class="px-xs py-[2px] bg-surface-variant rounded border border-outline-variant/30 font-mono-code text-[11px] text-on-surface-variant">@Service</span>
+<span class="px-xs py-[2px] bg-surface-variant rounded border border-outline-variant/30 font-mono-code text-[11px] text-on-surface-variant">@RestController</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Item 2: Unused Service -->
+<div class="flex flex-col gap-md">
+<div class="window-frame flex flex-col h-full">
+<div class="window-header">
+<div class="window-dots">
+<div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+</div>
+<div class="window-title">unused-service.png</div>
+<div class="ml-auto flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline text-[14px]">more_horiz</span>
+</div>
+</div>
+<div class="canvas-bg p-sm flex-1 relative flex items-center justify-center overflow-hidden group">
+<img alt="Unused Service Discovery" class="w-full object-contain rounded shadow-lg group-hover:scale-[1.02] transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4-Q8NkXqChNCX-KI6t4V1ndZ0K6QnSuCRdb1me6MSCvLfoiDKb_g4--usrpHSke3oPz6tEdb2AOk-jXY_bVgJImFOjrV4aVHxd4C4kfc2eGyJtwbdM-bLC4PIxOXmZaedAwdgA_RO4c5C9yrww6Nf7D7heFPl8kL-3hB5yrIZsaXl1PcOhgR9zpGfmrbGvBVAelTbpJ7foay2bgiskhctrinnNaEjkSZqbijiFp9qWZ-lVYDXNaM2i0j4ZUDeHuWUE6YsKdulTdw"/>
+<div class="absolute top-md left-md bg-error-container/90 backdrop-blur-sm border border-error/50 p-sm rounded shadow-lg">
+<span class="font-mono-code text-mono-code text-error flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                    Dead Code Detected
+                                </span>
+</div>
+</div>
+<div class="bg-surface p-md border-t border-outline-variant/50">
+<h3 class="font-heading-md text-heading-md text-on-surface mb-xs">Orphaned Bean Discovery</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                                CodeAtlas identified `LegacyPaymentProcessor` as completely unreferenced in the current ApplicationContext. The graph visualizes this isolation, proving it can be safely deprecated without impacting the runtime graph.
+                            </p>
+<div class="mt-md flex gap-sm">
+<span class="px-xs py-[2px] bg-surface-variant rounded border border-outline-variant/30 font-mono-code text-[11px] text-on-surface-variant">ApplicationContext</span>
+<span class="px-xs py-[2px] bg-error-container/20 rounded border border-error/30 font-mono-code text-[11px] text-error">Orphaned</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Data Section (Placeholder for future examples) -->
+<section class="mt-2xl border-t border-outline-variant/30 pt-xl">
+<h2 class="font-heading-md text-heading-md text-on-surface mb-md">Interactive Examples</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="bg-surface-container p-md border border-outline-variant/50 rounded hover:border-tertiary transition-colors cursor-pointer group relative overflow-hidden">
+<div class="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br from-tertiary to-transparent transition-opacity"></div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-xs">Circular Dependency</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Visualize immediate failure points in DI configuration.</p>
+</div>
+<div class="bg-surface-container p-md border border-outline-variant/50 rounded hover:border-tertiary transition-colors cursor-pointer group relative overflow-hidden">
+<div class="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br from-tertiary to-transparent transition-opacity"></div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-xs">Database Bypass</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Controllers hitting Repositories directly, skipping Services.</p>
+</div>
+<div class="bg-surface-container p-md border border-outline-variant/50 rounded hover:border-tertiary transition-colors cursor-pointer group relative overflow-hidden">
+<div class="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br from-tertiary to-transparent transition-opacity"></div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-xs">Module Boundaries</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Enforce hexagonal architecture package structures.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center px-md py-xs bg-surface-container-lowest border-t border-outline-variant/50 h-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant">© 2024 CodeAtlas Engineering. Built for Architects.</span>
+<div class="flex gap-md">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors" href="#">GitHub</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors" href="#">Documentation</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors" href="#">Status</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>

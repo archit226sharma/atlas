@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Page Not Found | CodeAtlas</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-center p-4 antialiased">
+  
+  <div class="max-w-md w-full glass-panel p-8 rounded-xl border border-outline-variant text-center flex flex-col items-center gap-4 shadow-2xl">
+    <img src="assets/images/logo.jpg" alt="CodeAtlas Logo" class="w-12 h-12 rounded border border-outline-variant object-cover mb-2" />
+    
+    <span class="text-xs font-mono font-bold text-accent bg-accent/10 px-3 py-1 rounded-full border border-accent/30 uppercase tracking-wider">
+      404 - Unmapped Route
+    </span>
+
+    <h1 class="text-3xl font-bold text-on-background tracking-tight">Node Not Found</h1>
+    
+    <p class="text-xs text-on-surface-variant leading-relaxed">
+      The requested architectural route or page path does not exist in the CodeAtlas ApplicationContext index.
+    </p>
+
+    <div class="w-full bg-code-bg p-3 rounded-lg border border-outline-variant/60 font-mono text-xs text-error text-left mt-2">
+      <span class="text-on-surface-variant block">// AST Resolver Trace:</span>
+      ERR_ROUTE_NOT_FOUND: 404
+    </div>
+
+    <a href="index.html#home" class="mt-4 px-5 py-2.5 rounded-md font-semibold text-xs bg-accent text-gray-950 hover:bg-accent/90 transition-opacity w-full block text-center shadow-lg shadow-accent/10">
+      Return to Explorer Home
+    </a>
+  </div>
+
+</body>
+</html>

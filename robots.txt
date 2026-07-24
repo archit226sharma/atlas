@@ -1,0 +1,5 @@
+# CodeAtlas Website Robots Exclusion Standard
+User-agent: *
+Allow: /
+
+Sitemap: https://varunkulkarninagpur.github.io/codeAtlas/sitemap.xml

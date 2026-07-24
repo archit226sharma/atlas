@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeAtlas - Architecture</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#e4e1e5",
+                      "on-surface": "#e4e1e5",
+                      "on-primary": "#313032",
+                      "surface-container-high": "#2a2a2d",
+                      "surface-tint": "#c8c6c8",
+                      "on-surface-variant": "#c8c5ca",
+                      "tertiary": "#4ae176",
+                      "outline-variant": "#47464a",
+                      "on-primary-fixed": "#1c1b1d",
+                      "error": "#ffb4ab",
+                      "surface-dim": "#131316",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed": "#1a1b22",
+                      "inverse-on-surface": "#303033",
+                      "surface-variant": "#353437",
+                      "primary-container": "#09090b",
+                      "secondary-fixed-dim": "#c6c6cf",
+                      "on-tertiary-fixed": "#002109",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "on-tertiary": "#003915",
+                      "on-primary-fixed-variant": "#474649",
+                      "surface-container-low": "#1b1b1e",
+                      "surface-container-highest": "#353437",
+                      "on-tertiary-container": "#008c3e",
+                      "primary": "#c8c6c8",
+                      "on-secondary-container": "#b4b4bd",
+                      "secondary": "#c6c6cf",
+                      "background": "#131316",
+                      "inverse-primary": "#5f5e60",
+                      "primary-fixed-dim": "#c8c6c8",
+                      "on-secondary": "#2f3037",
+                      "inverse-surface": "#e4e1e5",
+                      "surface-bright": "#39393c",
+                      "on-tertiary-fixed-variant": "#005321",
+                      "on-error": "#690005",
+                      "surface-container": "#1f1f22",
+                      "secondary-container": "#45464e",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-lowest": "#0e0e11",
+                      "surface": "#131316",
+                      "primary-fixed": "#e5e1e4",
+                      "tertiary-fixed": "#6bff8f",
+                      "tertiary-container": "#000c02",
+                      "outline": "#919095",
+                      "tertiary-fixed-dim": "#4ae176",
+                      "secondary-fixed": "#e2e1eb",
+                      "on-primary-container": "#7a787b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "3xl": "64px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "2xl": "48px",
+                      "xs": "4px",
+                      "md": "16px",
+                      "base": "8px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "hero-lg": [
+                              "Geist"
+                      ],
+                      "heading-md": [
+                              "Geist"
+                      ],
+                      "section-title-mobile": [
+                              "Geist"
+                      ],
+                      "hero-sm": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "label-caps": [
+                              "Geist"
+                      ],
+                      "section-title": [
+                              "Geist"
+                      ],
+                      "mono-code": [
+                              "Geist Mono"
+                      ],
+                      "body-sm": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "hero-lg": [
+                              "72px",
+                              {
+                                      "lineHeight": "80px",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "heading-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "section-title-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "hero-sm": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "section-title": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "mono-code": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .font-mono-code { font-family: 'Geist Mono', monospace; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col selection:bg-tertiary selection:text-tertiary-container">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-12 px-md w-full sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/50 hidden md:flex">
+<div class="flex items-center gap-xl">
+<span class="font-heading-md text-heading-md text-on-background dark:text-on-background tracking-tight">CodeAtlas</span>
+<nav class="flex gap-lg">
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Explorer</a>
+<a class="font-body-sm text-body-sm text-tertiary dark:text-tertiary border-b-2 border-tertiary pb-1 cursor-pointer active:opacity-80" href="#">Architecture</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Beans</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Dependencies</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-md text-primary dark:text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:text-on-surface transition-colors">dark_mode</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-on-surface transition-colors">search</span>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-md py-2xl lg:px-3xl flex flex-col gap-2xl">
+<!-- Hero Section -->
+<section class="flex flex-col gap-md items-start max-w-4xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant/50 bg-surface-container-low mb-4">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Architecture Deep Dive</span>
+</div>
+<h1 class="font-hero-lg text-hero-lg md:text-hero-lg text-on-background">Static Analysis Engine</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-4">
+                    CodeAtlas operates entirely offline, performing rigorous static analysis on your Java source code to reconstruct the Spring Boot application context without executing a single line of code.
+                </p>
+<div class="flex flex-col gap-2 mt-8 p-lg rounded-xl border border-outline-variant/50 bg-surface-container-highest/20 max-w-fit">
+<span class="font-heading-md text-heading-md text-on-surface">No cloud. No telemetry. No AI.</span>
+<span class="font-body-lg text-body-lg text-tertiary">100% local analysis.</span>
+</div>
+</section>
+<!-- Analysis Pipeline Diagram (Bento Grid Style) -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-md mt-xl">
+<!-- Step 1 -->
+<div class="flex flex-col gap-md p-lg rounded-xl border border-outline-variant/50 bg-surface-container-low hover:border-tertiary transition-colors group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-between z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Phase 01</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors">scanner</span>
+</div>
+<h3 class="font-heading-md text-heading-md text-on-surface z-10">Scan</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant z-10">
+                        Rapidly indexes workspace directories, locating all `.java` files while respecting `.gitignore` and build tool exclusions to minimize I/O overhead.
+                    </p>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col gap-md p-lg rounded-xl border border-outline-variant/50 bg-surface-container-low hover:border-tertiary transition-colors group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-between z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Phase 02</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors">code_blocks</span>
+</div>
+<h3 class="font-heading-md text-heading-md text-on-surface z-10">Parse</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant z-10">
+                        Constructs Abstract Syntax Trees (AST) using a robust Java parser. Extracts class metadata, field signatures, and Spring stereotype annotations.
+                    </p>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col gap-md p-lg rounded-xl border border-outline-variant/50 bg-surface-container-low hover:border-tertiary transition-colors group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-between z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Phase 03</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors">schema</span>
+</div>
+<h3 class="font-heading-md text-heading-md text-on-surface z-10">Graph</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant z-10">
+                        Resolves dependencies by matching `@Autowired` fields, constructor parameters, and `@Bean` methods to their corresponding type definitions.
+                    </p>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col gap-md p-lg rounded-xl border border-outline-variant/50 bg-surface-container-low hover:border-tertiary transition-colors group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-between z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Phase 04</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors">analytics</span>
+</div>
+<h3 class="font-heading-md text-heading-md text-on-surface z-10">Analyze</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant z-10">
+                        Detects architectural smells like circular dependencies, missing configurations, and orphaned beans by analyzing the resulting dependency graph.
+                    </p>
+</div>
+</section>
+<!-- Technical Deep Dive: Parsing -->
+<section class="mt-2xl flex flex-col lg:flex-row gap-xl items-stretch">
+<div class="flex-1 flex flex-col gap-md">
+<h2 class="font-section-title text-section-title text-on-surface">Annotation Parsing Logic</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">
+                        CodeAtlas relies on exact syntactic matching of Spring Framework metadata. Our AST visitor traverses class declarations looking for stereotype annotations to categorize architectural components.
+                    </p>
+<div class="flex flex-col gap-sm">
+<!-- Bean Row -->
+<div class="flex items-center gap-md p-sm rounded border border-outline-variant/30 bg-surface-container-highest/10 hover:bg-surface-container transition-colors">
+<div class="w-8 h-8 rounded flex items-center justify-center bg-surface-container border border-outline-variant/50">
+<span class="material-symbols-outlined text-tertiary text-[18px]">dns</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono-code text-mono-code text-on-surface">@Service, @Component, @Repository</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Component Scanning Definitions</span>
+</div>
+</div>
+<!-- Config Row -->
+<div class="flex items-center gap-md p-sm rounded border border-outline-variant/30 bg-surface-container-highest/10 hover:bg-surface-container transition-colors">
+<div class="w-8 h-8 rounded flex items-center justify-center bg-surface-container border border-outline-variant/50">
+<span class="material-symbols-outlined text-tertiary text-[18px]">settings_input_component</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono-code text-mono-code text-on-surface">@Configuration, @Bean</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Explicit Bean Factory Methods</span>
+</div>
+</div>
+<!-- Injection Row -->
+<div class="flex items-center gap-md p-sm rounded border border-outline-variant/30 bg-surface-container-highest/10 hover:bg-surface-container transition-colors">
+<div class="w-8 h-8 rounded flex items-center justify-center bg-surface-container border border-outline-variant/50">
+<span class="material-symbols-outlined text-tertiary text-[18px]">link</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono-code text-mono-code text-on-surface">@Autowired, @Qualifier, Constructors</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Dependency Injection Points</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Code Block Demo -->
+<div class="flex-1 rounded-xl border border-outline-variant/50 bg-[#0d0d0f] overflow-hidden flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.5)]">
+<div class="flex items-center px-4 py-2 bg-surface-container-low border-b border-outline-variant/50 gap-2">
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<span class="font-mono-code text-[11px] text-on-surface-variant ml-4">UserService.java</span>
+</div>
+<div class="p-lg overflow-x-auto">
+<pre class="font-mono-code text-mono-code leading-relaxed"><span class="text-tertiary">@Service</span>
+<span class="text-primary">public class</span> <span class="text-on-surface">UserService</span> {
+
+    <span class="text-outline">/* Detected Dependency: UserRepository */</span>
+    <span class="text-primary">private final</span> <span class="text-on-surface">UserRepository</span> repository;
+
+    <span class="text-tertiary">@Autowired</span>
+    <span class="text-primary">public</span> <span class="text-on-surface">UserService</span>(<span class="text-on-surface">UserRepository</span> repository) {
+        <span class="text-primary">this</span>.repository = repository;
+    }
+}
+</pre>
+</div>
+</div>
+</section>
+<!-- Evidence Section -->
+<section class="mt-2xl mb-3xl flex flex-col gap-lg items-center">
+<div class="text-center max-w-2xl">
+<h2 class="font-section-title text-section-title text-on-surface mb-4">Engine Output</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        The CLI engine produces a deterministic summary of the application context, serving as the data source for the VS Code visualization layer.
+                    </p>
+</div>
+<div class="w-full max-w-5xl rounded-xl border border-outline-variant/50 overflow-hidden shadow-[0_12px_40px_rgb(0,0,0,0.6)] bg-surface-container-lowest">
+<img alt="Terminal summary showing Spring Boot context analysis output" class="w-full h-auto object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeNaI8ikT4B3310aeGBkvd8qHMM2-6J9osD6aR-fKO3oCdexgypzHI8BkwWJJ5eBFxQNklW892_YkJnjMWnU2bRJMU8IIBGvxnEgPO_lvngoXluWAoqc7KYmt_CmdG3cXKnyNIEFYocNQ_pGgh45KBdELG07UOB0Jtbho7co_pLjxtc8MUin5e2Pkg6IieE1OpqBueSXyXc46h1RiKgD2HFblMvG3NWBM7OVkj4oeLkBzzN-qnfFcbhWPK7qg7yz4qbDQ2NsYXxHw"/>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center px-md py-xs bg-surface-container-lowest border-t border-outline-variant/50 h-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant">© 2024 CodeAtlas Engineering. Built for Architects.</span>
+<div class="flex gap-md">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-default" href="#">GitHub</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-default" href="#">Documentation</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-default" href="#">Status</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-default" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>

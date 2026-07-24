@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>CodeAtlas - Spring Boot Architecture Explorer for VS Code</title>
+  <meta name="description" content="Official website for CodeAtlas VS Code extension. Analyze, validate, and visualize Spring Boot application architecture with 100% offline static analysis." />
+  
+  <!-- SEO & Canonical Metadata -->
+  <link rel="canonical" href="https://varunkulkarninagpur.github.io/codeAtlas/" />
+  <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://varunkulkarninagpur.github.io/codeAtlas/" />
+  <meta property="og:title" content="CodeAtlas - Spring Boot Architecture Explorer for VS Code" />
+  <meta property="og:description" content="Analyze, validate, and explore Spring Boot service dependencies directly in VS Code. 100% offline static AST analysis with zero cloud execution." />
+  <meta property="og:image" content="https://varunkulkarninagpur.github.io/codeAtlas/assets/images/architecture_overview.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://varunkulkarninagpur.github.io/codeAtlas/" />
+  <meta name="twitter:title" content="CodeAtlas - Spring Boot Architecture Explorer" />
+  <meta name="twitter:description" content="Visualize Spring Boot dependencies inside VS Code with local AST parsing and architecture health scoring." />
+  <meta name="twitter:image" content="https://varunkulkarninagpur.github.io/codeAtlas/assets/images/architecture_overview.png" />
+
+  <!-- Meta Security Policy for Local Browser Execution -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self';" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Standalone Minified Production Styles -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased selection:bg-accent/20 selection:text-accent">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 w-full border-b border-outline-variant/60 bg-background/80 backdrop-blur-md transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="#home" data-view-target="view-home" class="flex items-center gap-2.5 group">
+          <img src="assets/images/logo.jpg" alt="CodeAtlas Logo" class="w-7 h-7 rounded border border-outline-variant object-cover group-hover:scale-105 transition-transform" />
+          <span class="font-bold text-base tracking-tight text-on-background">CodeAtlas</span>
+        </a>
+        <span class="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono font-medium rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant/40">
+          v1.0.0
+        </span>
+      </div>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Main Navigation">
+        <a href="#home" data-view-target="view-home" class="text-accent border-b-2 border-accent pb-0.5 transition-colors">Explorer</a>
+        <a href="#features" data-view-target="view-features" class="text-on-surface-variant hover:text-on-background transition-colors">Features</a>
+        <a href="#how-it-works" data-view-target="view-how-it-works" class="text-on-surface-variant hover:text-on-background transition-colors">Architecture</a>
+        <a href="#gallery" data-view-target="view-gallery" class="text-on-surface-variant hover:text-on-background transition-colors">Showcase</a>
+        <a href="#docs" data-view-target="view-docs" class="text-on-surface-variant hover:text-on-background transition-colors">Documentation</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-2">
+        <!-- Search Trigger -->
+        <button class="search-trigger flex items-center gap-2 px-2.5 py-1 rounded-md text-xs text-on-surface-variant bg-surface-container border border-outline-variant/60 hover:border-accent/40 transition-colors" aria-label="Search Documentation">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <span class="hidden sm:inline">Search</span>
+          <kbd class="hidden sm:inline-block text-[10px] font-mono bg-surface-container-high px-1.5 py-0.5 rounded border border-outline-variant/40">Ctrl K</kbd>
+        </button>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button class="theme-toggle-btn p-1.5 rounded-md text-on-surface-variant hover:text-on-background hover:bg-surface-container transition-colors" aria-label="Toggle Theme">
+          <svg class="w-4 h-4 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </button>
+
+        <!-- Official VS Code Marketplace Install Button -->
+        <a href="https://marketplace.visualstudio.com/items?itemName=VarunKulkarni.codeatlas-vscode" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-accent text-gray-950 hover:bg-accent/90 transition-opacity shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Install VS Code
+        </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobile-menu-btn" class="md:hidden p-1.5 rounded-md text-on-surface-variant hover:bg-surface-container" aria-label="Toggle Mobile Menu" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-drawer" class="hidden md:hidden border-t border-outline-variant bg-surface px-4 py-3 flex flex-col gap-2">
+      <a href="#home" data-view-target="view-home" class="px-3 py-2 rounded text-sm font-medium text-on-background hover:bg-surface-container">Explorer</a>
+      <a href="#features" data-view-target="view-features" class="px-3 py-2 rounded text-sm font-medium text-on-surface-variant hover:bg-surface-container">Features</a>
+      <a href="#how-it-works" data-view-target="view-how-it-works" class="px-3 py-2 rounded text-sm font-medium text-on-surface-variant hover:bg-surface-container">Architecture</a>
+      <a href="#gallery" data-view-target="view-gallery" class="px-3 py-2 rounded text-sm font-medium text-on-surface-variant hover:bg-surface-container">Showcase</a>
+      <a href="#docs" data-view-target="view-docs" class="px-3 py-2 rounded text-sm font-medium text-on-surface-variant hover:bg-surface-container">Documentation</a>
+    </div>
+  </header>
+
+  <!-- MAIN MULTI-VIEW CONTENT AREA -->
+  <main class="flex-grow">
+
+    <!-- VIEW 1: HOME PAGE -->
+    <div id="view-home" class="page-view" role="region" aria-label="Home View">
+      
+      <!-- HERO SECTION -->
+      <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-outline-variant/50 pt-8 pb-16">
+        <!-- Canvas Ambient WebGL Grid Shader -->
+        <div class="absolute inset-0 w-full h-full opacity-35 pointer-events-none z-0">
+          <canvas id="shader-canvas" class="w-full h-full block"></canvas>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Hero Text Column -->
+          <div class="lg:col-span-5 flex flex-col gap-6 text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant/60 bg-surface-container-low w-fit">
+              <span class="pulse-dot"></span>
+              <span class="text-xs font-mono font-medium text-on-surface-variant uppercase tracking-wider">v1.0.0 Release · 100% Local Analysis</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-on-background leading-[1.1]">
+              Visualize <br />
+              <span class="gradient-text">Spring Boot</span> <br />
+              Architecture
+            </h1>
+
+            <p class="text-base sm:text-lg text-on-surface-variant max-w-lg">
+              Analyze, validate, and explore your service dependencies directly inside VS Code. Static AST parser with zero cloud execution, zero telemetry, and 100% deterministic rule scoring.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <a href="https://marketplace.visualstudio.com/items?itemName=VarunKulkarni.codeatlas-vscode" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-md font-semibold text-sm bg-accent text-gray-950 hover:opacity-90 transition-opacity flex items-center gap-2 shadow-lg shadow-accent/10">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Install on VS Code
+              </a>
+              <button onclick="document.getElementById('interactive-graph-section').scrollIntoView({behavior: 'smooth'})" class="px-5 py-2.5 rounded-md font-semibold text-sm border border-outline-variant bg-surface hover:bg-surface-container text-on-background transition-colors flex items-center gap-2">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Try Graph Explorer
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero IDE Mockup Column -->
+          <div class="lg:col-span-7 w-full">
+            <div class="ide-window">
+              <div class="ide-header justify-between">
+                <div class="flex items-center gap-1.5">
+                  <span class="ide-dot ide-dot-red"></span>
+                  <span class="ide-dot ide-dot-yellow"></span>
+                  <span class="ide-dot ide-dot-green"></span>
+                  <span class="text-xs font-mono text-on-surface-variant ml-2">spring-boot-demo - Visual Studio Code</span>
+                </div>
+                <div class="text-[11px] font-mono text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">CodeAtlas Active</div>
+              </div>
+
+              <!-- IDE Subheader Tabs -->
+              <div class="flex items-center border-b border-outline-variant/60 bg-surface text-xs font-mono">
+                <button class="ide-tab px-4 py-2 border-b-2 border-accent bg-surface-container text-on-background flex items-center gap-2 font-medium" data-tab="graph">
+                  <svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                  Architecture Explorer
+                </button>
+                <button class="ide-tab px-4 py-2 text-on-surface-variant hover:text-on-background flex items-center gap-2" data-tab="code">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                  UserService.java
+                </button>
+                <button class="ide-tab px-4 py-2 text-on-surface-variant hover:text-on-background flex items-center gap-2" data-tab="terminal">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  Terminal Summary
+                </button>
+              </div>
+
+              <!-- IDE Content Area -->
+              <div class="p-2 relative bg-surface-container-low min-h-[380px]">
+                <!-- Tab 1: Graph Preview -->
+                <div id="ide-content-graph" class="ide-tab-content cursor-pointer" data-lightbox-src="assets/images/architecture_overview.png" data-lightbox-title="CodeAtlas Architecture Explorer Preview">
+                  <img src="assets/images/architecture_overview.png" alt="Architecture Overview Screenshot" class="w-full h-auto rounded border border-outline-variant/60 shadow-md hover:opacity-95 transition-opacity" />
+                </div>
+
+                <!-- Tab 2: Java Code Preview -->
+                <div id="ide-content-code" class="ide-tab-content hidden p-4 font-mono text-xs text-on-background leading-relaxed">
+                  <div class="text-on-surface-variant mb-2">// UserService.java - Parsed by CodeAtlas AST Engine</div>
+                  <p><span class="text-purple-400">@Service</span></p>
+                  <p><span class="text-blue-400">public class</span> <span class="text-yellow-300">UserService</span> {</p>
+                  <p class="pl-4"><span class="text-purple-400">@Autowired</span></p>
+                  <p class="pl-4"><span class="text-blue-400">private</span> <span class="text-yellow-300">UserRepository</span> userRepository;</p>
+                  <br />
+                  <p class="pl-4"><span class="text-blue-400">public</span> UserResponse <span class="text-green-400">getUserById</span>(Long id) {</p>
+                  <p class="pl-8 text-on-surface-variant">// CodeAtlas validates UserService -&gt; UserRepository boundary</p>
+                  <p class="pl-8"><span class="text-blue-400">return</span> userRepository.findById(id).map(UserResponse::<span class="text-blue-400">from</span>);</p>
+                  <p class="pl-4">}</p>
+                  <p>}</p>
+                </div>
+
+                <!-- Tab 3: Terminal Summary Preview -->
+                <div id="ide-content-terminal" class="ide-tab-content hidden cursor-pointer" data-lightbox-src="assets/images/terminal_summary.png" data-lightbox-title="CodeAtlas Terminal Static Analysis Summary">
+                  <img src="assets/images/terminal_summary.png" alt="Terminal Summary Screenshot" class="w-full h-auto rounded border border-outline-variant/60 shadow-md" />
+                </div>
+              </div>
+
+              <!-- IDE Footer Status Bar -->
+              <div class="h-6 bg-accent-dim text-white flex items-center justify-between px-3 font-mono text-[11px]">
+                <div class="flex items-center gap-3">
+                  <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> CodeAtlas: Ready</span>
+                  <span class="opacity-80">Syncing AST context</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span>UTF-8</span>
+                  <span>Java 17</span>
+                  <span>Spring Boot 3.2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CENTERPIECE SECTION: INTERACTIVE SPRING BOOT GRAPH DEMONSTRATION -->
+      <section id="interactive-graph-section" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-outline-variant/50">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-mono font-semibold mb-3 uppercase tracking-wider">
+            Interactive Product Demo
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-on-background">Explore Realistic Spring Boot Topologies</h2>
+          <p class="text-base text-on-surface-variant mt-3">
+            Click nodes to inspect bean stereotyping, annotations, and layer rules. Test architectural anti-patterns with preset scenarios below.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Preset Controls & Score Panel -->
+          <div class="lg:col-span-4 flex flex-col gap-4">
+            
+            <div class="glass-panel p-5 rounded-xl border border-outline-variant">
+              <span class="text-xs font-mono uppercase tracking-wider text-on-surface-variant block mb-1">Architecture Health Score</span>
+              <div class="flex items-baseline justify-between">
+                <span id="graph-score-value" class="text-4xl font-bold font-mono text-on-background">98/100</span>
+                <span id="graph-score-badge" class="px-3 py-1 rounded-full text-xs font-mono font-semibold badge-accent">Healthy Topology</span>
+              </div>
+              <h3 id="graph-preset-title" class="font-semibold text-sm text-on-background mt-3">System Topology Overview</h3>
+              <p id="graph-preset-desc" class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                Complete macro-view of Spring Boot ApplicationContext. Clean Controller -&gt; Service -&gt; Repository boundaries.
+              </p>
+            </div>
+
+            <!-- Preset Scenario Selector -->
+            <div class="glass-panel p-4 rounded-xl border border-outline-variant flex flex-col gap-2">
+              <span class="text-xs font-mono text-on-surface-variant font-semibold uppercase tracking-wider mb-1">Test Preset Scenarios</span>
+              
+              <button onclick="CodeAtlasGraph.setPreset('overview')" class="w-full text-left p-2.5 rounded-lg border border-outline-variant/60 hover:border-accent/50 hover:bg-surface-container transition-colors flex items-center justify-between group">
+                <div>
+                  <div class="text-xs font-semibold text-on-background group-hover:text-accent">1. System Topology Overview</div>
+                  <div class="text-[11px] text-on-surface-variant">Full 3-tier Controller/Service/Repo graph</div>
+                </div>
+                <span class="text-xs font-mono font-bold text-accent">98/100</span>
+              </button>
+
+              <button onclick="CodeAtlasGraph.setPreset('violation')" class="w-full text-left p-2.5 rounded-lg border border-outline-variant/60 hover:border-error/50 hover:bg-surface-container transition-colors flex items-center justify-between group">
+                <div>
+                  <div class="text-xs font-semibold text-on-background group-hover:text-error">2. Layer Bypass Violation</div>
+                  <div class="text-[11px] text-on-surface-variant">Controller invokes Repository directly</div>
+                </div>
+                <span class="text-xs font-mono font-bold text-error">72/100</span>
+              </button>
+
+              <button onclick="CodeAtlasGraph.setPreset('circular')" class="w-full text-left p-2.5 rounded-lg border border-outline-variant/60 hover:border-warning/50 hover:bg-surface-container transition-colors flex items-center justify-between group">
+                <div>
+                  <div class="text-xs font-semibold text-on-background group-hover:text-warning">3. Circular Dependency Cycle</div>
+                  <div class="text-[11px] text-on-surface-variant">OrderService &lt;-&gt; PaymentService cycle</div>
+                </div>
+                <span class="text-xs font-mono font-bold text-warning">64/100</span>
+              </button>
+
+              <button onclick="CodeAtlasGraph.setPreset('unused')" class="w-full text-left p-2.5 rounded-lg border border-outline-variant/60 hover:border-warning/50 hover:bg-surface-container transition-colors flex items-center justify-between group">
+                <div>
+                  <div class="text-xs font-semibold text-on-background group-hover:text-warning">4. Orphaned / Unused Bean</div>
+                  <div class="text-[11px] text-on-surface-variant">Unreferenced bean detection</div>
+                </div>
+                <span class="text-xs font-mono font-bold text-warning">85/100</span>
+              </button>
+
+              <button onclick="CodeAtlasGraph.setPreset('clean')" class="w-full text-left p-2.5 rounded-lg border border-outline-variant/60 hover:border-accent/50 hover:bg-surface-container transition-colors flex items-center justify-between group">
+                <div>
+                  <div class="text-xs font-semibold text-on-background group-hover:text-accent">5. 100/100 Clean State</div>
+                  <div class="text-[11px] text-on-surface-variant">Zero violations &amp; perfect layering</div>
+                </div>
+                <span class="text-xs font-mono font-bold text-accent">100/100</span>
+              </button>
+            </div>
+
+            <!-- Node Detail Inspector Panel -->
+            <div class="glass-panel p-4 rounded-xl border border-outline-variant">
+              <span class="text-xs font-mono text-on-surface-variant uppercase tracking-wider block mb-2 font-semibold">Node Inspector</span>
+              <div id="node-inspector-content">
+                <p class="text-xs text-on-surface-variant italic">Click any graph node to inspect Spring annotations, AST metadata, and dependency metrics.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Interactive SVG Dependency Graph Canvas -->
+          <div class="lg:col-span-8 glass-panel rounded-xl border border-outline-variant p-4 overflow-hidden relative shadow-2xl">
+            <!-- Canvas Toolbar -->
+            <div class="flex items-center justify-between border-b border-outline-variant/60 pb-3 mb-4 text-xs font-mono">
+              <div class="flex items-center gap-4 text-on-surface-variant">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-blue-500"></span> Controller</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-green-500"></span> Service</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-purple-500"></span> Repository</span>
+              </div>
+              <div class="text-on-surface-variant">Interactive AST Topology Render</div>
+            </div>
+
+            <!-- SVG Container -->
+            <div id="graph-svg-container" class="graph-canvas rounded-lg border border-outline-variant/40 overflow-auto">
+              <!-- Rendered dynamically by assets/js/graph-engine.js -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- REAL SCREENSHOT SHOWCASE & SYSTEM HEALTH -->
+      <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-outline-variant/50">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          <!-- Real Screenshot Embed -->
+          <div class="glass-panel p-3 rounded-xl border border-outline-variant cursor-pointer group" data-lightbox-src="assets/images/sidebar.png" data-lightbox-title="CodeAtlas Architecture Health Breakdown Panel">
+            <img src="assets/images/sidebar.png" alt="Architecture Health Sidebar Panel Screenshot" class="w-full h-auto rounded border border-outline-variant/60 group-hover:scale-[1.01] transition-transform duration-300" />
+            <div class="p-2 text-center text-xs text-on-surface-variant font-mono">Click screenshot to expand high-res preview</div>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <h2 class="text-3xl font-bold tracking-tight text-on-background">Quantify System Health Deterministically</h2>
+            <p class="text-base text-on-surface-variant leading-relaxed">
+              Move beyond qualitative guesswork. CodeAtlas continuously evaluates your Spring Boot project against strict architectural rules, calculating an objective health score (0 - 100).
+            </p>
+            
+            <ul class="flex flex-col gap-4 mt-2">
+              <li class="flex items-start gap-3">
+                <div class="p-2 rounded bg-accent/10 text-accent border border-accent/20 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                  <strong class="text-sm font-semibold text-on-background block">Score Breakdown</strong>
+                  <span class="text-xs text-on-surface-variant">Transparent deductions for layer violations, circular references, and unreferenced beans.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="p-2 rounded bg-accent/10 text-accent border border-accent/20 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <div>
+                  <strong class="text-sm font-semibold text-on-background block">Real-time Component Inventory</strong>
+                  <span class="text-xs text-on-surface-variant">Complete catalog of Controllers, Services, Repositories, and Configuration Beans.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- VIOLATION DETECTION SHOWCASE -->
+      <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          <div class="flex flex-col gap-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-error/10 border border-error/30 text-error text-xs font-mono font-semibold w-fit">
+              Rule Enforcement Engine
+            </div>
+            <h2 class="text-3xl font-bold tracking-tight text-on-background">Instant Anti-Pattern Detection</h2>
+            <p class="text-base text-on-surface-variant leading-relaxed">
+              Isolate architectural debt before pull request review. CodeAtlas parses AST references to catch layer bypasses, circular dependencies, and dead code paths immediately.
+            </p>
+
+            <div class="glass-panel p-4 rounded-lg border border-error/30 bg-error/5 mt-2">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-mono font-bold text-error">1 Rule Violation</span>
+                <span class="text-[10px] font-mono bg-error/20 text-error px-2 py-0.5 rounded">BYPASS_SERVICE_LAYER</span>
+              </div>
+              <p class="text-xs text-on-surface-variant">UserController directly invokes UserRepository, bypassing the Service layer business boundary.</p>
+            </div>
+          </div>
+
+          <div class="glass-panel p-3 rounded-xl border border-outline-variant cursor-pointer group" data-lightbox-src="assets/images/architecture_violation.png" data-lightbox-title="CodeAtlas Violation Detection Inspector">
+            <img src="assets/images/architecture_violation.png" alt="Architecture Violation Screenshot" class="w-full h-auto rounded border border-outline-variant/60 group-hover:scale-[1.01] transition-transform duration-300" />
+            <div class="p-2 text-center text-xs text-on-surface-variant font-mono">Click screenshot to expand high-res preview</div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- VIEW 2: FEATURES PAGE -->
+    <div id="view-features" class="page-view hidden" role="region" aria-label="Features View">
+      <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="max-w-3xl mb-12">
+          <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">Capabilities</span>
+          <h1 class="text-4xl font-bold tracking-tight text-on-background mt-1">Static Analysis Engine Features</h1>
+          <p class="text-base text-on-surface-variant mt-2">
+            Comprehensive breakdown of AST parsing, Spring stereotype resolution, and rule enforcement inside VS Code.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant card-hover">
+            <div class="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            </div>
+            <h3 class="font-semibold text-base text-on-background">Zero-Execution AST Parser</h3>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Parses Java source files directly without building bytecode, running JVM processes, or executing code. 100% offline and secure.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant card-hover">
+            <div class="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10M7 12h10M7 17h10"></path></svg>
+            </div>
+            <h3 class="font-semibold text-base text-on-background">Spring Stereotype Resolution</h3>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Resolves @RestController, @Service, @Repository, @Bean, @Autowired, @Component, and custom meta-annotations.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant card-hover">
+            <div class="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <h3 class="font-semibold text-base text-on-background">Layer Bypass Enforcement</h3>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Detects Controllers accessing Repositories directly or bypassing defined Service boundaries.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant card-hover">
+            <div class="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </div>
+            <h3 class="font-semibold text-base text-on-background">Circular Dependency Spotter</h3>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Identifies circular injection loops between Spring Beans before context initialization failures occur.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant card-hover">
+            <div class="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </div>
+            <h3 class="font-semibold text-base text-on-background">Orphaned Bean Discovery</h3>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Locates unreferenced Spring Beans and dead code paths in your codebase with zero runtime overhead.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant card-hover">
+            <div class="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+            <h3 class="font-semibold text-base text-on-background">Integrated Terminal Reports</h3>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Outputs clean static analysis summaries directly in the VS Code integrated terminal tab.
+            </p>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 3: HOW IT WORKS / ARCHITECTURE -->
+    <div id="view-how-it-works" class="page-view hidden" role="region" aria-label="Architecture View">
+      <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="max-w-3xl mb-12">
+          <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">Architecture Deep Dive</span>
+          <h1 class="text-4xl font-bold tracking-tight text-on-background mt-1">4-Phase Static Analysis Pipeline</h1>
+          <p class="text-base text-on-surface-variant mt-2">
+            CodeAtlas reconstructs the Spring Boot ApplicationContext offline using AST scanning and rule evaluation.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant relative">
+            <span class="text-xs font-mono text-accent font-bold block mb-2">Phase 01</span>
+            <h3 class="font-semibold text-base text-on-background">Workspace Scan</h3>
+            <p class="text-xs text-on-surface-variant mt-2">Indexes .java files, honoring .gitignore and build configuration exclusions.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant relative">
+            <span class="text-xs font-mono text-accent font-bold block mb-2">Phase 02</span>
+            <h3 class="font-semibold text-base text-on-background">AST &amp; Stereotypes</h3>
+            <p class="text-xs text-on-surface-variant mt-2">Extracts class ASTs, field signatures, and Spring stereotype annotations.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant relative">
+            <span class="text-xs font-mono text-accent font-bold block mb-2">Phase 03</span>
+            <h3 class="font-semibold text-base text-on-background">Graph Wiring</h3>
+            <p class="text-xs text-on-surface-variant mt-2">Wires dependency paths between Controllers, Services, and Repositories.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-xl border border-outline-variant relative">
+            <span class="text-xs font-mono text-accent font-bold block mb-2">Phase 04</span>
+            <h3 class="font-semibold text-base text-on-background">Rule Audit</h3>
+            <p class="text-xs text-on-surface-variant mt-2">Evaluates strict layering, circular cycles, and computes health score (0-100).</p>
+          </div>
+        </div>
+
+        <!-- Privacy & Security Guarantee Card -->
+        <div class="glass-panel p-8 rounded-xl border border-accent/30 bg-accent/5 mt-12 max-w-4xl">
+          <h3 class="text-lg font-bold text-on-background flex items-center gap-2">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            100% Offline &amp; Private Guarantee
+          </h3>
+          <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+            CodeAtlas runs entirely within your local VS Code process. No source code or AST tokens ever leave your workstation. No external API servers, no cloud telemetry, and no LLM hallucinations.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 4: SHOWCASE & GALLERY -->
+    <div id="view-gallery" class="page-view hidden" role="region" aria-label="Showcase Gallery View">
+      <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="max-w-3xl mb-12">
+          <span class="text-xs font-mono font-semibold text-accent uppercase tracking-wider">Product Gallery</span>
+          <h1 class="text-4xl font-bold tracking-tight text-on-background mt-1">Real CodeAtlas VS Code Screenshots</h1>
+          <p class="text-base text-on-surface-variant mt-2">
+            Authentic screenshots captured directly from the CodeAtlas extension analyzing real Spring Boot repositories. Click any screenshot for high-resolution inspection.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Screenshot 1 -->
+          <div class="glass-panel p-4 rounded-xl border border-outline-variant card-hover cursor-pointer" data-lightbox-src="assets/images/architecture_overview.png" data-lightbox-title="System Topology Overview Graph">
+            <img src="assets/images/architecture_overview.png" alt="Architecture Overview" class="w-full h-auto rounded border border-outline-variant/60" />
+            <div class="mt-3">
+              <h3 class="font-semibold text-sm text-on-background">System Topology Overview</h3>
+              <p class="text-xs text-on-surface-variant mt-1">Full interactive graph rendering in VS Code Webview panel.</p>
+            </div>
+          </div>
+
+          <!-- Screenshot 2 -->
+          <div class="glass-panel p-4 rounded-xl border border-outline-variant card-hover cursor-pointer" data-lightbox-src="assets/images/architecture_violation.png" data-lightbox-title="Layer Bypass Violation Inspector">
+            <img src="assets/images/architecture_violation.png" alt="Architecture Violation" class="w-full h-auto rounded border border-outline-variant/60" />
+            <div class="mt-3">
+              <h3 class="font-semibold text-sm text-on-background">Layer Bypass Violation</h3>
+              <p class="text-xs text-on-surface-variant mt-1">Red highlight path indicating Controller -&gt; Repository bypass.</p>
+            </div>
+          </div>
+
+          <!-- Screenshot 3 -->
+          <div class="glass-panel p-4 rounded-xl border border-outline-variant card-hover cursor-pointer" data-lightbox-src="assets/images/no_architectural_issues.png" data-lightbox-title="Clean Architecture Audit State (100/100)">
+            <img src="assets/images/no_architectural_issues.png" alt="Clean Architecture" class="w-full h-auto rounded border border-outline-variant/60" />
+            <div class="mt-3">
+              <h3 class="font-semibold text-sm text-on-background">Clean Architecture State</h3>
+              <p class="text-xs text-on-surface-variant mt-1">100/100 health audit score with zero architectural issues.</p>
+            </div>
+          </div>
+
+          <!-- Screenshot 4 -->
+          <div class="glass-panel p-4 rounded-xl border border-outline-variant card-hover cursor-pointer" data-lightbox-src="assets/images/sidebar.png" data-lightbox-title="VS Code Sidebar Audit Panel">
+            <img src="assets/images/sidebar.png" alt="Sidebar Audit Panel" class="w-full h-auto rounded border border-outline-variant/60" />
+            <div class="mt-3">
+              <h3 class="font-semibold text-sm text-on-background">Sidebar Health Breakdown</h3>
+              <p class="text-xs text-on-surface-variant mt-1">Expandable component tree and violation list in VS Code activity bar.</p>
+            </div>
+          </div>
+
+          <!-- Screenshot 5 -->
+          <div class="glass-panel p-4 rounded-xl border border-outline-variant card-hover cursor-pointer" data-lightbox-src="assets/images/terminal_summary.png" data-lightbox-title="Integrated Terminal Output Summary">
+            <img src="assets/images/terminal_summary.png" alt="Terminal Summary" class="w-full h-auto rounded border border-outline-variant/60" />
+            <div class="mt-3">
+              <h3 class="font-semibold text-sm text-on-background">Terminal Analysis Output</h3>
+              <p class="text-xs text-on-surface-variant mt-1">Text-based static analysis summary output in integrated terminal.</p>
+            </div>
+          </div>
+
+          <!-- Screenshot 6 -->
+          <div class="glass-panel p-4 rounded-xl border border-outline-variant card-hover cursor-pointer" data-lightbox-src="assets/images/unused_service.png" data-lightbox-title="Orphaned Bean Discovery">
+            <img src="assets/images/unused_service.png" alt="Unused Service" class="w-full h-auto rounded border border-outline-variant/60" />
+            <div class="mt-3">
+              <h3 class="font-semibold text-sm text-on-background">Orphaned Bean Discovery</h3>
+              <p class="text-xs text-on-surface-variant mt-1">Detection of unreferenced beans and dead code components.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 5: DOCUMENTATION PAGE -->
+    <div id="view-docs" class="page-view hidden" role="region" aria-label="Documentation View">
+      <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8 pb-6 border-b border-outline-variant">
+          <div>
+            <h1 class="text-3xl font-bold text-on-background">CodeAtlas Documentation</h1>
+            <p class="text-xs text-on-surface-variant mt-1">Official manual for installation, rules, and configuration (v1.0.0)</p>
+          </div>
+
+          <!-- Docs Live Search Filter -->
+          <div class="w-full md:w-72">
+            <input type="text" id="docs-search-input" placeholder="Search docs (e.g. rules, java)..." class="w-full px-3 py-1.5 rounded-md text-xs bg-surface-container border border-outline-variant focus:border-accent text-on-background focus:outline-none" aria-label="Search Documentation Manual" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Sidebar Navigation for Docs -->
+          <aside class="lg:col-span-3 font-mono text-xs flex flex-col gap-2" aria-label="Documentation Table of Contents">
+            <a href="#doc-install" onclick="document.getElementById('doc-install').scrollIntoView({behavior:'smooth'})" class="p-2 rounded hover:bg-surface-container text-accent font-semibold">1. Installation</a>
+            <a href="#doc-requirements" onclick="document.getElementById('doc-requirements').scrollIntoView({behavior:'smooth'})" class="p-2 rounded hover:bg-surface-container text-on-surface-variant">2. System Requirements</a>
+            <a href="#doc-commands" onclick="document.getElementById('doc-commands').scrollIntoView({behavior:'smooth'})" class="p-2 rounded hover:bg-surface-container text-on-surface-variant">3. Extension Commands</a>
+            <a href="#doc-config" onclick="document.getElementById('doc-config').scrollIntoView({behavior:'smooth'})" class="p-2 rounded hover:bg-surface-container text-on-surface-variant">4. Configuration (.vscode/codeatlas.json)</a>
+            <a href="#doc-rules" onclick="document.getElementById('doc-rules').scrollIntoView({behavior:'smooth'})" class="p-2 rounded hover:bg-surface-container text-on-surface-variant">5. Architecture Rules</a>
+            <a href="#doc-limitations" onclick="document.getElementById('doc-limitations').scrollIntoView({behavior:'smooth'})" class="p-2 rounded hover:bg-surface-container text-on-surface-variant">6. Known Limitations</a>
+            <a href="#doc-faq" onclick="document.getElementById('doc-faq').scrollIntoView({behavior:'smooth'})" class="p-2 rounded hover:bg-surface-container text-on-surface-variant">7. Frequently Asked Questions</a>
+          </aside>
+
+          <!-- Docs Body Content -->
+          <div class="lg:col-span-9 flex flex-col gap-10">
+            
+            <!-- Section 1: Installation -->
+            <article id="doc-install" class="docs-section glass-panel p-6 rounded-xl border border-outline-variant">
+              <h2 class="text-xl font-bold text-on-background border-b border-outline-variant/40 pb-2 mb-3">1. Installation &amp; Setup</h2>
+              <p class="text-xs text-on-surface-variant mb-4">Install CodeAtlas directly from the Visual Studio Code Marketplace or via command line.</p>
+              
+              <div class="bg-code-bg p-3 rounded-lg border border-outline-variant/60 font-mono text-xs text-accent">
+                code --install-extension VarunKulkarni.codeatlas-vscode
+              </div>
+            </article>
+
+            <!-- Section 2: Requirements -->
+            <article id="doc-requirements" class="docs-section glass-panel p-6 rounded-xl border border-outline-variant">
+              <h2 class="text-xl font-bold text-on-background border-b border-outline-variant/40 pb-2 mb-3">2. System Requirements &amp; Compatibility</h2>
+              <ul class="text-xs text-on-surface-variant space-y-2 list-disc pl-5">
+                <li><strong>IDE:</strong> Visual Studio Code 1.80.0 or newer.</li>
+                <li><strong>Java JDK:</strong> Java 17 LTS or Java 21 LTS source code compatibility.</li>
+                <li><strong>Spring Boot:</strong> Spring Boot 2.7.x through 3.3.x projects.</li>
+                <li><strong>Build System:</strong> Maven (pom.xml) or Gradle (build.gradle / build.gradle.kts).</li>
+              </ul>
+            </article>
+
+            <!-- Section 3: Commands -->
+            <article id="doc-commands" class="docs-section glass-panel p-6 rounded-xl border border-outline-variant">
+              <h2 class="text-xl font-bold text-on-background border-b border-outline-variant/40 pb-2 mb-3">3. Extension Commands</h2>
+              <div class="space-y-3 font-mono text-xs">
+                <div class="p-2.5 rounded bg-surface border border-outline-variant">
+                  <strong class="text-accent block">CodeAtlas: Open Architecture Explorer</strong>
+                  <span class="text-on-surface-variant text-[11px]">Opens the interactive Webview dependency graph canvas for current workspace.</span>
+                </div>
+                <div class="p-2.5 rounded bg-surface border border-outline-variant">
+                  <strong class="text-accent block">CodeAtlas: Analyze Project</strong>
+                  <span class="text-on-surface-variant text-[11px]">Triggers full AST scan and prints summary report in integrated terminal.</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Section 4: Configuration -->
+            <article id="doc-config" class="docs-section glass-panel p-6 rounded-xl border border-outline-variant">
+              <h2 class="text-xl font-bold text-on-background border-b border-outline-variant/40 pb-2 mb-3">4. Configuration Schema (.vscode/codeatlas.json)</h2>
+              <p class="text-xs text-on-surface-variant mb-3">Customize analysis scope and rule enforcement weight in your project repository.</p>
+              
+              <pre class="bg-code-bg p-4 rounded-lg border border-outline-variant/60 font-mono text-xs text-on-background overflow-x-auto"><code>{
+  "codeatlas.version": "1.0.0",
+  "analysis": {
+    "excludePackages": ["com.example.demo.generated.*"],
+    "maxDepth": 10
+  },
+  "rules": {
+    "enforceStrictLayering": true,
+    "allowCircularDependencies": false,
+    "flagUnusedBeans": true
+  },
+  "scoring": {
+    "layerBypassPenalty": 20,
+    "circularDependencyPenalty": 30,
+    "unusedBeanPenalty": 5
+  }
+}</code></pre>
+            </article>
+
+            <!-- Section 5: Architecture Rules -->
+            <article id="doc-rules" class="docs-section glass-panel p-6 rounded-xl border border-outline-variant">
+              <h2 class="text-xl font-bold text-on-background border-b border-outline-variant/40 pb-2 mb-3">5. Architecture Rules Reference</h2>
+              
+              <div class="space-y-4 text-xs">
+                <div>
+                  <h4 class="font-mono text-error font-semibold">BYPASS_SERVICE_LAYER</h4>
+                  <p class="text-on-surface-variant mt-1">Triggers when a @RestController or @Controller class injects a @Repository interface directly without invoking an intermediate @Service layer.</p>
+                </div>
+                <div>
+                  <h4 class="font-mono text-warning font-semibold">CIRCULAR_DEPENDENCY</h4>
+                  <p class="text-on-surface-variant mt-1">Triggers when two or more Spring Beans create a closed injection cycle (e.g. Bean A -&gt; Bean B -&gt; Bean A).</p>
+                </div>
+                <div>
+                  <h4 class="font-mono text-warning font-semibold">UNUSED_SPRING_BEAN</h4>
+                  <p class="text-on-surface-variant mt-1">Triggers when a @Service, @Component, or @Bean method has zero inbound injection points in the parsed AST graph.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Section 6: Limitations -->
+            <article id="doc-limitations" class="docs-section glass-panel p-6 rounded-xl border border-outline-variant">
+              <h2 class="text-xl font-bold text-on-background border-b border-outline-variant/40 pb-2 mb-3">6. Known Limitations</h2>
+              <ul class="text-xs text-on-surface-variant space-y-2 list-disc pl-5">
+                <li>Dynamic runtime reflection bean creation (`ApplicationContext.getBean(String)`) cannot be statically wired into AST graph.</li>
+                <li>Legacy XML bean configuration files (`applicationContext.xml`) are not parsed; Java annotation configuration is required.</li>
+              </ul>
+            </article>
+
+            <!-- Section 7: FAQ -->
+            <article id="doc-faq" class="docs-section glass-panel p-6 rounded-xl border border-outline-variant">
+              <h2 class="text-xl font-bold text-on-background border-b border-outline-variant/40 pb-2 mb-3">7. Frequently Asked Questions</h2>
+              <div class="space-y-3 text-xs">
+                <div>
+                  <strong class="text-on-background block">Q: Does CodeAtlas execute my Spring Boot application?</strong>
+                  <span class="text-on-surface-variant">A: No. CodeAtlas performs 100% offline static AST parsing. It never starts a JVM process or executes your code.</span>
+                </div>
+                <div>
+                  <strong class="text-on-background block">Q: Is my source code sent to any cloud servers?</strong>
+                  <span class="text-on-surface-variant">A: No. CodeAtlas operates completely offline inside VS Code. Zero network telemetry or cloud storage is involved.</span>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-outline-variant/60 bg-surface py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant">
+      <div class="flex items-center gap-2">
+        <img src="assets/images/logo.jpg" alt="CodeAtlas Logo" class="w-5 h-5 rounded" />
+        <span>CodeAtlas Engineering · Official VS Code Extension Website (v1.0.0)</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#home" data-view-target="view-home" class="hover:text-on-background transition-colors">Explorer</a>
+        <a href="#features" data-view-target="view-features" class="hover:text-on-background transition-colors">Features</a>
+        <a href="#docs" data-view-target="view-docs" class="hover:text-on-background transition-colors">Documentation</a>
+        <a href="https://github.com/varunkulkarninagpur/codeAtlas" target="_blank" rel="noopener noreferrer" class="hover:text-on-background transition-colors flex items-center gap-1">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+          GitHub
+        </a>
+        <span class="text-accent font-mono">100% Local Analysis</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GLOBAL SEARCH MODAL -->
+  <div id="search-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-20 px-4 bg-black/70 backdrop-blur-sm" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Global Site Search">
+    <div class="bg-surface border border-outline-variant rounded-xl shadow-2xl w-full max-w-lg overflow-hidden">
+      <div class="p-3 border-b border-outline-variant/60 flex items-center justify-between">
+        <input type="text" id="global-search-input" placeholder="Search features, rules, documentation..." class="w-full bg-transparent text-sm text-on-background placeholder:text-on-surface-variant focus:outline-none px-2" aria-label="Search Input Query" />
+        <button id="search-modal-close" class="text-xs text-on-surface-variant hover:text-on-background px-2" aria-label="Close Search Modal">Esc</button>
+      </div>
+      <div id="global-search-results" class="max-h-80 overflow-y-auto">
+        <!-- Rendered safely by assets/js/app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX IMAGE MODAL -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 lightbox-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Screenshot Lightbox Modal">
+    <div class="relative max-w-5xl w-full bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+      <div class="p-3 border-b border-outline-variant/60 flex items-center justify-between bg-surface-container">
+        <span id="lightbox-title" class="text-xs font-mono font-semibold text-on-background">Screenshot Preview</span>
+        <button id="lightbox-close" class="text-xs font-mono px-2 py-1 rounded bg-surface-container-high text-on-surface-variant hover:text-on-background" aria-label="Close Lightbox Modal">Close (Esc)</button>
+      </div>
+      <div class="p-2 overflow-auto flex-grow flex items-center justify-center bg-black">
+        <img id="lightbox-image" src="assets/images/architecture_overview.png" alt="Screenshot Full View" class="max-h-[75vh] w-auto object-contain rounded" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/shader.js"></script>
+  <script src="assets/js/graph-engine.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

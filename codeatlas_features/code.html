@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeAtlas - Features</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Geist+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#e4e1e5",
+                      "on-surface": "#e4e1e5",
+                      "on-primary": "#313032",
+                      "surface-container-high": "#2a2a2d",
+                      "surface-tint": "#c8c6c8",
+                      "on-surface-variant": "#c8c5ca",
+                      "tertiary": "#4ae176",
+                      "outline-variant": "#47464a",
+                      "on-primary-fixed": "#1c1b1d",
+                      "error": "#ffb4ab",
+                      "surface-dim": "#131316",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed": "#1a1b22",
+                      "inverse-on-surface": "#303033",
+                      "surface-variant": "#353437",
+                      "primary-container": "#09090b",
+                      "secondary-fixed-dim": "#c6c6cf",
+                      "on-tertiary-fixed": "#002109",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "on-tertiary": "#003915",
+                      "on-primary-fixed-variant": "#474649",
+                      "surface-container-low": "#1b1b1e",
+                      "surface-container-highest": "#353437",
+                      "on-tertiary-container": "#008c3e",
+                      "primary": "#c8c6c8",
+                      "on-secondary-container": "#b4b4bd",
+                      "secondary": "#c6c6cf",
+                      "background": "#131316",
+                      "inverse-primary": "#5f5e60",
+                      "primary-fixed-dim": "#c8c6c8",
+                      "on-secondary": "#2f3037",
+                      "inverse-surface": "#e4e1e5",
+                      "surface-bright": "#39393c",
+                      "on-tertiary-fixed-variant": "#005321",
+                      "on-error": "#690005",
+                      "surface-container": "#1f1f22",
+                      "secondary-container": "#45464e",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-lowest": "#0e0e11",
+                      "surface": "#131316",
+                      "primary-fixed": "#e5e1e4",
+                      "tertiary-fixed": "#6bff8f",
+                      "tertiary-container": "#000c02",
+                      "outline": "#919095",
+                      "tertiary-fixed-dim": "#4ae176",
+                      "secondary-fixed": "#e2e1eb",
+                      "on-primary-container": "#7a787b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "3xl": "64px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "2xl": "48px",
+                      "xs": "4px",
+                      "md": "16px",
+                      "base": "8px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "hero-lg": [
+                              "Geist"
+                      ],
+                      "heading-md": [
+                              "Geist"
+                      ],
+                      "section-title-mobile": [
+                              "Geist"
+                      ],
+                      "hero-sm": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "label-caps": [
+                              "Geist"
+                      ],
+                      "section-title": [
+                              "Geist"
+                      ],
+                      "mono-code": [
+                              "Geist Mono"
+                      ],
+                      "body-sm": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "hero-lg": [
+                              "72px",
+                              {
+                                      "lineHeight": "80px",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "heading-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "section-title-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "hero-sm": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "section-title": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "mono-code": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .bg-editor {
+            background-color: theme('colors.surface-container-low');
+        }
+        .border-editor {
+            border-color: theme('colors.outline-variant');
+        }
+        
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline-variant');
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-12 px-md w-full sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/50">
+<div class="flex items-center gap-md">
+<span class="font-heading-md text-heading-md text-on-background tracking-tight">CodeAtlas</span>
+</div>
+<!-- Navigation Links (Hidden on Mobile) -->
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Explorer</a>
+<a class="font-body-sm text-body-sm text-tertiary border-b-2 border-tertiary pb-1 cursor-pointer active:opacity-80" href="#">Architecture</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Beans</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Dependencies</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button aria-label="Dark Mode" class="p-xs text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+<button aria-label="Search" class="p-xs text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-y-auto relative bg-background pb-3xl">
+<!-- Hero Section for Features -->
+<section class="px-md md:px-3xl py-2xl border-b border-editor">
+<h1 class="font-hero-sm md:font-hero-lg text-hero-sm md:text-hero-lg mb-base text-on-background">System Architecture Analysis</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Comprehensive feature breakdown for dependency resolution, layer validation, and structural integrity of Spring Boot applications within VS Code.</p>
+</section>
+<!-- Sticky Sub-Nav for Features -->
+<nav class="sticky top-0 z-40 bg-surface-container-low/90 backdrop-blur border-b border-editor px-md md:px-3xl py-sm flex gap-md overflow-x-auto no-scrollbar font-body-sm text-body-sm">
+<a class="text-on-surface-variant hover:text-tertiary whitespace-nowrap transition-colors" href="#dependency-graph">Dependency Graph</a>
+<a class="text-on-surface-variant hover:text-tertiary whitespace-nowrap transition-colors" href="#layer-validation">Layer Validation</a>
+<a class="text-on-surface-variant hover:text-tertiary whitespace-nowrap transition-colors" href="#circular-deps">Circular Detection</a>
+</nav>
+<div class="px-md md:px-3xl py-xl flex flex-col gap-2xl">
+<!-- Dependency Graph Visualization -->
+<section class="scroll-mt-[100px]" id="dependency-graph">
+<div class="mb-lg">
+<h2 class="font-section-title-mobile md:font-section-title text-section-title-mobile md:text-section-title mb-sm text-on-background">Dependency Graph Visualization</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Real-time, interactive maps of inter-bean dependencies. Isolate complex sub-systems and identify high-coupling areas instantly.</p>
+</div>
+<!-- Bento Grid for Dependency Graph -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="md:col-span-2 bg-surface-container rounded border border-editor p-md flex flex-col">
+<div class="flex justify-between items-center mb-sm border-b border-editor/50 pb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Visualization Engine</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]" data-icon="account_tree">account_tree</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded border border-editor overflow-hidden flex items-center justify-center relative min-h-[300px]">
+<!-- Using Image 15 as an example of a clean graph -->
+<img alt="No architectural issues graph" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdgNbqlNjecsq0aPTqkTRzLsoOXR5j4SdKRc7IBosVAa_NlQUs7aD2cXNAk4EZ4UBZM8AVAuInj5c-aG4Fz7eK706ezY7hFKgefuswaG0mousM5UmejTLt8QwFUDFp8w0gsZgjTSyPra08vVYilfqmIc_dxaXDMslMc682_h7wzwhL20NfAi3lhgO4ECC6zT1zCMw1G_YWmDG42csaQVu7KlLPwEX3gZUo8NKjlYA5je9IGb3ikRhjbTuObNFGd7ooeKBrYRIbwbA"/>
+<div class="absolute bottom-md left-md bg-surface/80 backdrop-blur p-xs rounded border border-editor flex gap-sm items-center">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-mono-code text-mono-code text-on-surface">System Healthy</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded border border-editor p-md flex flex-col gap-md">
+<div class="border-b border-editor/50 pb-sm">
+<h3 class="font-heading-md text-heading-md text-on-surface mb-xs">Dynamic Filtering</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Isolate graphs by Spring stereotypes (@Service, @Repository) or custom packages to reduce noise in massive codebases.</p>
+</div>
+<div class="border-b border-editor/50 pb-sm">
+<h3 class="font-heading-md text-heading-md text-on-surface mb-xs">Impact Analysis</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Highlight downstream dependents to predict the ripple effect of interface changes before modifying code.</p>
+</div>
+<div>
+<h3 class="font-heading-md text-heading-md text-on-surface mb-xs">IDE Sync</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Click any node in the graph to instantly jump to the corresponding source file in the editor.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Layer Validation -->
+<section class="scroll-mt-[100px]" id="layer-validation">
+<div class="mb-lg flex justify-between items-end border-b border-editor pb-sm">
+<div>
+<h2 class="font-section-title-mobile md:font-section-title text-section-title-mobile md:text-section-title mb-sm text-on-background">Layer Validation (ArchUnit)</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Enforce architectural boundaries. Automatically detect when domain rules are bypassed.</p>
+</div>
+<span class="font-label-caps text-label-caps bg-error/10 text-error px-sm py-xs rounded border border-error/20">Violations Found</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Violation Example -->
+<div class="bg-surface-container rounded border border-error/50 p-md flex flex-col relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-error/5 to-transparent pointer-events-none"></div>
+<div class="flex justify-between items-center mb-md z-10">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-error text-[18px]" data-icon="warning">warning</span>
+<span class="font-label-caps text-label-caps text-error">Architecture Violation</span>
+</div>
+<span class="font-mono-code text-mono-code text-on-surface-variant text-[11px]">Rule: Controllers_Must_Not_Access_Repositories</span>
+</div>
+<div class="bg-surface-container-lowest rounded border border-editor overflow-hidden mb-sm flex-1">
+<img alt="Architecture Violation Graph" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARd4yR62eEUpGihClMl-ogKSIlCXjznqF0V04LMAIc16bnD73OS3t2K1440MXhQyvjMipln9qNLCBU--mYwaVQE9XcA3asjVWQQfYLFnEiBDSSBkb0anL-FsGFd163gfguCznKc2fo2J3ajsMoeHERFtdk8hv3HLMHbVwkfOlcMh6iv0yo2X1R7jw9ImTYMVKjm2Il0qsPUg786cMYbHcaXBMU78FvgWl902CvHocXO-qQXrylgk8gpL_nirX--bxsUMb8AoGFYdQ"/>
+</div>
+<div class="bg-error-container/20 rounded border border-error/20 p-sm mt-auto z-10">
+<p class="font-mono-code text-mono-code text-on-surface break-all text-[12px]">
+<span class="text-error">Violation:</span> com.app.web.UserController -&gt; com.app.data.UserRepository<br/>
+<span class="text-on-surface-variant">Remediation: Route via UserService interface.</span>
+</p>
+</div>
+</div>
+<!-- Validation Rules Setup -->
+<div class="bg-surface-container rounded border border-editor p-md flex flex-col">
+<div class="mb-md">
+<h3 class="font-heading-md text-heading-md text-on-surface mb-xs">Rule Configuration</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Define rules using standard ArchUnit semantics directly in a `.codeatlas.yml` file or via the UI panel.</p>
+</div>
+<div class="bg-background rounded border border-editor p-sm flex-1 overflow-x-auto font-mono-code text-mono-code text-[12px] leading-relaxed">
+<pre><code class="text-on-surface-variant"><span class="text-tertiary">rules:</span>
+  - <span class="text-tertiary">name:</span> LayeredArchitecture
+    <span class="text-tertiary">type:</span> layered
+    <span class="text-tertiary">layers:</span>
+      - <span class="text-tertiary">Web:</span> "com.example.web.."
+      - <span class="text-tertiary">Domain:</span> "com.example.domain.."
+      - <span class="text-tertiary">Persistence:</span> "com.example.data.."
+    <span class="text-tertiary">constraints:</span>
+      - Web <span class="text-error">mayNotAccess</span> Persistence
+      - Domain <span class="text-error">onlyDependsOn</span> java..</code></pre>
+</div>
+</div>
+</div>
+</section>
+<!-- Circular Dependency Detection -->
+<section class="scroll-mt-[100px] mb-xl" id="circular-deps">
+<div class="mb-lg">
+<h2 class="font-section-title-mobile md:font-section-title text-section-title-mobile md:text-section-title mb-sm text-on-background">Circular Dependency Detection</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Pinpoint problematic bean cycles that delay application startup or complicate testing.</p>
+</div>
+<div class="bg-surface-container rounded border border-editor p-md">
+<div class="flex items-center gap-sm mb-md border-b border-editor/50 pb-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="sync_problem">sync_problem</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Cycle Inspector</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="col-span-1 md:col-span-3 bg-surface-container-lowest rounded border border-editor p-sm relative">
+<!-- Abstract representation of a cycle -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-md">
+<div class="bg-surface-container border border-tertiary p-xs rounded font-mono-code text-mono-code text-[11px] text-tertiary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="deployed_code">deployed_code</span>
+                                             OrderService
+                                         </div>
+<div class="flex-1 h-px bg-editor relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 border-y-4 border-y-transparent border-l-[6px] border-l-outline-variant"></div>
+</div>
+<div class="bg-surface-container border border-error p-xs rounded font-mono-code text-mono-code text-[11px] text-error flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="deployed_code">deployed_code</span>
+                                             PaymentService
+                                         </div>
+</div>
+<div class="flex items-center gap-md flex-row-reverse">
+<div class="bg-surface-container border border-transparent p-xs rounded font-mono-code text-mono-code text-[11px] text-transparent flex items-center gap-xs select-none">
+                                             OrderService
+                                         </div>
+<div class="flex-1 h-px bg-editor relative">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 border-y-4 border-y-transparent border-r-[6px] border-r-outline-variant"></div>
+</div>
+<div class="bg-surface-container border border-transparent p-xs rounded font-mono-code text-mono-code text-[11px] text-transparent flex items-center gap-xs select-none">
+                                             PaymentService
+                                         </div>
+</div>
+</div>
+</div>
+<div class="col-span-1 flex flex-col justify-center gap-sm border-l border-editor/50 pl-md">
+<span class="font-heading-md text-heading-md text-on-surface">Immediate Feedback</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cycles are flagged in the editor gutter and highlighted in the architecture graph before startup fails.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center px-md py-xs bg-surface-container-lowest border-t border-outline-variant/50 h-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant">© 2024 CodeAtlas Engineering. Built for Architects.</span>
+<div class="flex gap-md">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer" href="#">GitHub</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer" href="#">Documentation</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer" href="#">Status</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>
