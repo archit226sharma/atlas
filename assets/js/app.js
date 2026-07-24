@@ -79,6 +79,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  const btnTryGraph = document.getElementById('btn-try-graph-explorer');
+  if (btnTryGraph) {
+    btnTryGraph.addEventListener('click', () => {
+      const section = document.getElementById('interactive-graph-section');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
   // Handle Hash Routing on Load and Change
   function handleHash() {
     const hash = window.location.hash.replace('#', '') || 'home';

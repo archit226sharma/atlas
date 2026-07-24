@@ -25,7 +25,7 @@ const MIME_TYPES = {
 };
 
 const SECURITY_HEADERS = {
-  'Content-Security-Policy': "default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self';",
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self';",
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
@@ -55,8 +55,16 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
-      res.end('404 Not Found');
+      const notFoundPath = path.join(PUBLIC_DIR, '404.html');
+      fs.stat(notFoundPath, (err404, stats404) => {
+        if (err404 || !stats404.isFile()) {
+          res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+          res.end('404 Not Found');
+          return;
+        }
+        res.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
+        fs.createReadStream(notFoundPath).pipe(res);
+      });
       return;
     }
 

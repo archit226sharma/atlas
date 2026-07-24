@@ -121,7 +121,10 @@
     });
 
     let animId;
+    let running = true;
+
     function render(t) {
+      if (!running) return;
       syncSize();
       gl.viewport(0, 0, canvas.width, canvas.height);
       if (uTime) gl.uniform1f(uTime, t * 0.001);
@@ -129,6 +132,23 @@
       if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       animId = requestAnimationFrame(render);
+    }
+
+    if (typeof IntersectionObserver !== 'undefined') {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          if (!running) {
+            running = true;
+            animId = requestAnimationFrame(render);
+          }
+        } else {
+          if (running) {
+            running = false;
+            cancelAnimationFrame(animId);
+          }
+        }
+      }, { threshold: 0 });
+      observer.observe(canvas);
     }
 
     render(0);
